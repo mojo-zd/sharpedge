@@ -1,0 +1,17 @@
+# Hippo service.
+server:
+  address: ":8000"
+
+# Database configuration.
+database:
+  logger:
+    level:  "all"
+    stdout: true
+  hippo:
+    link: "mysql:root:root123@tcp(127.0.0.1:3306)/hippo?loc=Local&parseTime=true"
+    debug: true
+
+# Logger configuration.
+logger:
+  level : "all"
+  stdout: true

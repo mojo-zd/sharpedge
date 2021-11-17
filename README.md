@@ -6,3 +6,9 @@
 
 ### `RouteFunction`生成
 通过反射在构建的`RouteFunction`中调用`instance`指定的方法并获取返回值，对返回值做统一处理
+
+## 运行
+```
+go run cmd/main.go server
+```
+浏览器中打开 `http://localhost:8888/swagger`可查看效果

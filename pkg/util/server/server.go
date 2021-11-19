@@ -87,7 +87,8 @@ func (s *Server) newRouteFunction(metadata meta.Metadata, info MethodInfo, param
 				}
 			}
 			cost := gtime.Now().Sub(start).Milliseconds()
-			fmt.Printf("request done, cost:%dms. request path: %s, method:%s\n", cost, metadata.Path, gstr.ToUpper(metadata.Method))
+			fmt.Printf("request done, cost:%dms. request path: %s, method:%s\n",
+				cost, metadata.Path, gstr.ToUpper(metadata.Method))
 			// TODO 通过response输出到客户端
 		}()
 
@@ -103,12 +104,13 @@ func (s *Server) newRouteFunction(metadata meta.Metadata, info MethodInfo, param
 	}
 }
 
+// BuildParameters return path parameter name
 func (s *Server) BuildParameters(metadata meta.Metadata) []string {
 	var paramNames []string
-	regx, _ := regexp.Compile(`({.+})`)
+	regx, _ := regexp.Compile(`{.[A-Za-z]+}`)
 	params := regx.FindAllString(metadata.Path, -1)
 
-	regx, _ = regexp.Compile(`{(.+)}`)
+	regx, _ = regexp.Compile(`{(.[A-Za-z]+)}`)
 	for _, param := range params {
 		matches := regx.FindStringSubmatch(param)
 		if len(matches) == 0 {

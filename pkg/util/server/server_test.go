@@ -14,11 +14,17 @@ func TestServer(t *testing.T) {
 }
 
 func TestParam(t *testing.T) {
-	regx, _ := regexp.Compile(`({.+})`)
+	regx, _ := regexp.Compile(`{.[A-Za-z]+}`)
 	//regx.FindString("/api/v1/{Id}")
-	t.Log(regx.FindAllString("/api/v1/{Id}/{Name}", -1))
+	params := regx.FindAllString("/api/v1/{Id}/{Name}", -1)
+	t.Log(params)
 
-	regx, _ = regexp.Compile(`{(.+)}`)
-
-	t.Log("sub:", regx.FindStringSubmatch("{Id}"))
+	regx, _ = regexp.Compile(`{(.[A-Za-z]+)}`)
+	for _, param := range params {
+		outs := regx.FindStringSubmatch(param)
+		if len(outs) == 0 {
+			continue
+		}
+		t.Log("sub:", outs[len(outs)-1])
+	}
 }
